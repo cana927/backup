@@ -49,7 +49,7 @@ public class measuringTraffic {
 		output [1] = high [start];
 		
 		int contin = start + 1; 
-		while (segment [contin] == 0) {
+		while (contin<N && segment [contin] == 0) {
 			output [0] = Math.max (output [0], low[contin]);
 			output [1] = Math.min(output [1], high [contin]);
 			contin ++;
@@ -60,14 +60,16 @@ public class measuringTraffic {
 				int l = low [i];
 				int h = high [i];
 				if (segment [i ] == -1 ) {
-					output[0] += h;
-					output [1] += l;
+					output[0] += l;
+					output [1] += h;
 				} else  {
-					output[0] -= l;
-					output [1] -= h;
+					output[0] -= h;
+					output [1] -= l;
 				}
 			}
+
 		}
+		
 		int end = 0;
 		for (int i =N-1; i>=0; i--) {
 			if (segment[i] == 0) {
@@ -75,11 +77,12 @@ public class measuringTraffic {
 				break;
 			}
 		}
+
 		output [2] = low [end];
 		output [3] = high [end];
 		
 		contin = end - 1; 
-		while (segment [contin] == 0) {
+		while (contin >-1 && segment [contin] == 0) {
 			output [2] = Math.max (output [2], low[contin]);
 			output [3] = Math.min(output [3], high [contin]);
 			contin --;
@@ -98,6 +101,7 @@ public class measuringTraffic {
 					output [3] += h;
 				
 				}
+
 			}
 		}
 	}
