@@ -7,7 +7,7 @@ public class TeamTicTacToe {
 	static BufferedReader in;
 	static PrintWriter out;
 	static StringTokenizer st;
-	static ArrayList<Character> one, two;
+	static ArrayList <Integer> one, two;
 	
 	public static void main (String [] args) throws IOException {
 		init();
@@ -29,7 +29,73 @@ public class TeamTicTacToe {
 		team = 0;
 	}
 	public static void solve () {
-		one = new ArrayList<Character> ();
+		one = new ArrayList<Integer> ();
+		two = new ArrayList<Integer> ();
+		
+		for (int i = 'a'; i<='z'; i++) {
+			boolean onewin = false; 
+			for (int r = 'a'; r<='z'; r++) {
+				for (int v = 0; v<3; v++) {
+					int e =check(board[v][0], board[r][1],board[r][2], (char)i, (char)r); 
+					if (e == 1 && !onewin) {
+						onewin = true;
+						indiv ++;
+					}
+					if (e==2 && !use(i,r) && !use (r, i)) {
+						team++;
+						one.add(i);
+						two.add(r);
+					}
+				}
+				for (int h = 0; h<3; h++) {
+					int e =check(board[0][h], board[1][h],board[2][h], (char)i, (char)r); 
+					if (e == 1 && !onewin) {
+						onewin = true;
+						indiv ++;
+					}
+					if (e==2 && !use(i,r) && !use (r, i)) {
+						team++;
+						one.add(i);
+						two.add(r);
+					}
+				}
+				int e =check(board[0][0], board[1][1],board[2][2], (char)i, (char)r); 
+				if (e == 1 && !onewin) {
+					onewin = true;
+					indiv ++;
+				}
+				if (e==2 && !use(i,r) && !use (r, i)) {
+					team++;
+					one.add(i);
+					two.add(r);
+				}
+				e =check(board[2][0], board[1][1],board[0][2], (char)i, (char)r); 
+				if (e == 1 && !onewin) {
+					onewin = true;
+					indiv ++;
+				}
+				if (e==2 && !use(i,r) && !use (r, i)) {
+					team++;
+					one.add(i);
+					two.add(r);
+				}
+			}
+		}
+	}
+	public static int check (char a, char b, char c, char one, char two) {
+		if (a == b && b==c && c == one) {
+			return 1;
+		}
+		else if (a == b && b == one && c == two) {
+			return 2;
+		}
+		else if (a == b && b == two && c == one) {
+			return 2;
+		}
+		return 0;
+	}
+		
+		/*one = new ArrayList<Character> ();
 		two = new ArrayList<Character> ();
 		
 		//horizontal
@@ -104,7 +170,7 @@ public class TeamTicTacToe {
 				two.add(b);
 			}
 		}
-	}
+		*/
 	public static void output () throws IOException {
 		out.print(indiv);
 		out.println ();
@@ -113,7 +179,7 @@ public class TeamTicTacToe {
 		out.close();
 	}
 	
-	public static boolean use (char a , char b) {
+	public static boolean use (int a , int b) {
 		for (int i =0; i<one.size(); i++) {
 			if (one.get(i) == a && two.get(i) == b) {
 				return true;

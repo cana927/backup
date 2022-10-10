@@ -35,9 +35,54 @@ public class measuringTraffic {
 			low [i] = Integer.parseInt(st.nextToken());
 			high [i] = Integer.parseInt(st.nextToken());
 		}
-		output = new int [4];
+		output = new int [] {-1, -1, -1, -1};
 	}
 	public static void solve() {
+		for (int i = 0; i<=1000; i++) {
+			int [] end = simulate(i);
+			if (end[0] != -1) {
+				if (output[0] == -1) {
+					output [0] = i;
+				}else if(i<output[0]) {
+					output[0] = i;
+				}
+				if (i > output[1]) {
+					output[1] = i;
+				}
+			}
+		}
+		
+		int [ ]a  = simulate(output[0]);
+		int [] b = simulate (output[1]);
+		output[2] = a[0];
+		output[3] = b[1];
+	}
+	public static int[] simulate (int k) {
+		int l = k;
+		int h = k;
+		for (int i =0; i<N; i++) {
+			if (segment[i] ==1) { 
+				l += low[i];
+				h += high[i];
+			}else if (segment [i] == -1) {
+				if (h<low[i]) {
+					return new int [] {-1,-1};
+				}
+				l = Math.max(l-high[i],0); // 
+				h = Math.max(l-low[i],0); //
+			}else {
+				if (h<low[i] || l>high[i]) { 
+					return new int [] {-1,-1};
+				} 
+				else {
+					l = Math.max(l, low[i]);
+					h = Math.min(h, high[i]);
+				}
+			}
+		}
+		return new int [] {l,h};
+	}
+	/*public static void solve2() {
 		int start = 0;
 		for (int i =0; i<N; i++) {
 			if (segment[i] == 0) {
@@ -104,7 +149,7 @@ public class measuringTraffic {
 
 			}
 		}
-	}
+	}*/
 	public static void output () throws IOException {
 		out.print(output[0] + " " + output[1]);
 		out.println ();
