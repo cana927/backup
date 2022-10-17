@@ -56,6 +56,7 @@ public class measuringTraffic {
 		int [] b = simulate (output[1]);
 		output[2] = a[0];
 		output[3] = b[1];
+		
 	}
 	public static int[] simulate (int k) {
 		int l = k;
@@ -69,7 +70,7 @@ public class measuringTraffic {
 					return new int [] {-1,-1};
 				}
 				l = Math.max(l-high[i],0); // 
-				h = Math.max(l-low[i],0); //
+				h = Math.max(h-low[i],0); //
 			}else {
 				if (h<low[i] || l>high[i]) { 
 					return new int [] {-1,-1};
