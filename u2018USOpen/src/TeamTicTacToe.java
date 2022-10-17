@@ -20,23 +20,23 @@ public class TeamTicTacToe {
 		board = new char [3][3];
 		for (int c = 0; c<3; c++) {
 			st = new StringTokenizer (in.readLine());
-			String full = st.nextToken();
+			String full = st.nextToken().toLowerCase();
 			for (int r = 0; r<3; r++) {
 				board [c][r] = full.charAt(r);
 			}
 		}
 		indiv = 0;
 		team = 0;
+		one = new ArrayList<Integer>();
+		two = new ArrayList<Integer>();
 	}
 	public static void solve () {
-		one = new ArrayList<Integer> ();
-		two = new ArrayList<Integer> ();
 		
 		for (int i = 'a'; i<='z'; i++) {
 			boolean onewin = false; 
 			for (int r = 'a'; r<='z'; r++) {
 				for (int v = 0; v<3; v++) {
-					int e =check(board[v][0], board[r][1],board[r][2], (char)i, (char)r); 
+					int e =check(board[v][0], board[v][1],board[v][2], (char)i, (char)r); 
 					if (e == 1 && !onewin) {
 						onewin = true;
 						indiv ++;
@@ -89,88 +89,15 @@ public class TeamTicTacToe {
 		else if (a == b && b == one && c == two) {
 			return 2;
 		}
-		else if (a == b && b == two && c == one) {
+		//else if (a == b && b == two && c == one) {
+			//return 2;
+		//}
+		else if (a == c && c == two && b == one) {
 			return 2;
 		}
 		return 0;
 	}
 		
-		/*one = new ArrayList<Character> ();
-		two = new ArrayList<Character> ();
-		
-		//horizontal
-		for (int r = 0; r<3; r++) {
-			if (board[r][0] == board[r][1] && board[r][1] == board[r][2] ) {
-				indiv ++;
-			}
-			else if (board[r][0] == board[r][1] || board[r][1] == board[r][2] || board[r][0] == board[r][2]) {
-				char a = board[r][0];
-				char b =board [r][1];
-				if (board[r][1] == board[r][0]) {
-					b = board[r][2];
-				}
-				if (!use(a,b)) {
-					team ++;
-					one.add(a);
-					two.add(b);
-				}
-				
-			}
-		}
-		
-		//vertical
-		for (int c = 0; c<3; c++) {
-			if (board[0][c] == board[1][c] && board[1][c] == board[2][c] ) {
-				indiv ++;
-			}
-			else if (board[0][c] == board[1][c] || board[1][c] == board[2][c] || board[0][c] == board[2][c]) {
-				char a = board[0][c];
-				char b =board [1][c];
-				if (board[0][c] == board[1][c]) {
-					b = board[2][c];
-				}
-				if (!use(a,b)) {
-					team ++;
-					one.add(a);
-					two.add(b);
-				}
-			}
-		}
-		
-		//diagonal top left to bot right
-		if (board[0][0] == board[1][1] && board[1][1] == board[2][2] ) {
-			indiv ++;
-		}
-		else if (board[0][0] == board[1][1] || board[1][1] == board[2][2] || board[0][0] == board[2][2]) {
-			char a = board[0][0];
-			char b =board [1][1];
-			if (board[0][0] == board[1][1]) {
-				b = board[2][2];
-			}
-			if (!use(a,b)) {
-				team ++;
-				one.add(a);
-				two.add(b);
-			}
-		}
-		
-		//other diagonal
-		if (board[0][2] == board[1][1] && board[1][1] == board[2][0] ) {
-			indiv ++;
-		}
-		else if (board[0][2] == board[1][1] || board[1][1] == board[2][0] || board[0][2] == board[2][0]) {
-			char a = board[0][2];
-			char b =board [1][1];
-			if (board[0][2] == board[1][1]) {
-				b = board[2][0];
-			}
-			if (!use(a,b)) {
-				team ++;
-				one.add(a);
-				two.add(b);
-			}
-		}
-		*/
 	public static void output () throws IOException {
 		out.print(indiv);
 		out.println ();
